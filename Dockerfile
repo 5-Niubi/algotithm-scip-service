@@ -1,6 +1,8 @@
-FROM python:3.9-slim
+FROM python:3.9-slim-buster
 
 # install compilers and scip deps
+# RUN apt-get update
+
 RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
         build-essential \
@@ -15,11 +17,11 @@ RUN apt-get update \
     && rm libboost.deb
 
 # add scip installer inside container
-ADD SCIPOptSuite-7.0.2-Linux-ubuntu.deb /
+ADD SCIPOptSuite-8.0.4-Linux-ubuntu.deb /
 
 # install scip and remove installer
-RUN dpkg -i SCIPOptSuite-7.0.2-Linux-ubuntu.deb \
-    && rm SCIPOptSuite-7.0.2-Linux-ubuntu.deb
+RUN dpkg -i SCIPOptSuite-8.0.4-Linux-ubuntu.deb \
+    && rm SCIPOptSuite-8.0.4-Linux-ubuntu.deb
 
 # create user
 RUN groupadd --gid 1000 user \
